@@ -3,6 +3,7 @@ package com.lab.backend.services;
 import com.lab.backend.models.Cliente;
 import com.lab.backend.models.dtos.ClienteDTO;
 import com.lab.backend.repositories.ClienteRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,9 +28,19 @@ public class ClienteService {
                 .toList();
     }
 
+    @Transactional
+    public ClienteDTO save(ClienteDTO obj) {
+        Cliente cliente = new Cliente();
+        cliente.setNome(obj.getNome());
+        cliente.setEmail(obj.getEmail());
+        cliente.setSenha(obj.getSenha());
+        cliente.setEndereco(obj.getEndereco());
+        cliente.setEntidadeEmpregadora(obj.getEntidadeEmpregadora());
+        cliente = clienteRepository.save(cliente);
+        return fromEntityToDTO(cliente);
+    }
+
     private ClienteDTO fromEntityToDTO(Cliente cliente) {
         return new ClienteDTO(cliente.getId(), cliente.getNome(), cliente.getEmail(), cliente.getSenha(), cliente.getEndereco(), cliente.getEntidadeEmpregadora());
     }
-
-
 }

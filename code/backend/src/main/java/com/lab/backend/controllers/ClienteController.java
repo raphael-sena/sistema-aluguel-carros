@@ -3,15 +3,14 @@ package com.lab.backend.controllers;
 import com.lab.backend.models.dtos.ClienteDTO;
 import com.lab.backend.services.ClienteService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/usuarios")
+@RequestMapping("/usuarios/clientes")
 public class ClienteController {
 
     private final ClienteService clienteService;
@@ -30,5 +29,15 @@ public class ClienteController {
     public ResponseEntity<List<ClienteDTO>> findAll() {
         List<ClienteDTO> clientes = clienteService.findAll();
         return ResponseEntity.ok(clientes);
+    }
+
+    @PostMapping
+    public ResponseEntity<ClienteDTO> save(@RequestBody ClienteDTO clienteDTO) {
+        ClienteDTO cliente = clienteService.save(clienteDTO);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri()
+                .path("/{id}")
+                .buildAndExpand(cliente.getId())
+                .toUri();
+        return ResponseEntity.created(uri).body(cliente);
     }
 }
