@@ -40,6 +40,21 @@ public class ClienteService {
         return fromEntityToDTO(cliente);
     }
 
+    public ClienteDTO update(Long id, ClienteDTO obj) {
+        ClienteDTO cliente = findById(id);
+        cliente.setNome(obj.getNome());
+        cliente.setEmail(obj.getEmail());
+        cliente.setSenha(obj.getSenha());
+        cliente.setEndereco(obj.getEndereco());
+        cliente.setEntidadeEmpregadora(obj.getEntidadeEmpregadora());
+        clienteRepository.save(fromDTOToEntity(cliente));
+        return cliente;
+    }
+
+    private Cliente fromDTOToEntity(ClienteDTO cliente) {
+        return new Cliente(cliente.getId(), cliente.getNome(), cliente.getEmail(), cliente.getSenha(), cliente.getEndereco(), cliente.getEntidadeEmpregadora());
+    }
+
     private ClienteDTO fromEntityToDTO(Cliente cliente) {
         return new ClienteDTO(cliente.getId(), cliente.getNome(), cliente.getEmail(), cliente.getSenha(), cliente.getEndereco(), cliente.getEntidadeEmpregadora());
     }
