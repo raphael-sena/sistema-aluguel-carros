@@ -51,6 +51,10 @@ public class ClienteService {
         return cliente;
     }
 
+    public void delete(Long id) {
+        clienteRepository.deleteById(id);
+    }
+
     private Cliente fromDTOToEntity(ClienteDTO cliente) {
         return new Cliente(cliente.getId(), cliente.getNome(), cliente.getEmail(), cliente.getSenha(), cliente.getEndereco(), cliente.getEntidadeEmpregadora());
     }
