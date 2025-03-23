@@ -1,5 +1,6 @@
 package com.lab.backend.models.dtos;
 
+import com.lab.backend.models.enums.TipoCliente;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,4 +17,5 @@ public class ClienteDTO {
     private String senha;
     private String endereco;
     private String entidadeEmpregadora;
+    private TipoCliente tipoCliente;
 }

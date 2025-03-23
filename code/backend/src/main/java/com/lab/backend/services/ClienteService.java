@@ -36,6 +36,7 @@ public class ClienteService {
         cliente.setSenha(obj.getSenha());
         cliente.setEndereco(obj.getEndereco());
         cliente.setEntidadeEmpregadora(obj.getEntidadeEmpregadora());
+        cliente.setTipoCliente(obj.getTipoCliente());
         cliente = clienteRepository.save(cliente);
         return fromEntityToDTO(cliente);
     }
@@ -47,6 +48,7 @@ public class ClienteService {
         cliente.setSenha(obj.getSenha());
         cliente.setEndereco(obj.getEndereco());
         cliente.setEntidadeEmpregadora(obj.getEntidadeEmpregadora());
+        cliente.setTipoCliente(obj.getTipoCliente());
         clienteRepository.save(fromDTOToEntity(cliente));
         return cliente;
     }
@@ -56,10 +58,10 @@ public class ClienteService {
     }
 
     private Cliente fromDTOToEntity(ClienteDTO cliente) {
-        return new Cliente(cliente.getId(), cliente.getNome(), cliente.getEmail(), cliente.getSenha(), cliente.getEndereco(), cliente.getEntidadeEmpregadora());
+        return new Cliente(cliente.getId(), cliente.getNome(), cliente.getEmail(), cliente.getSenha(), cliente.getEndereco(), cliente.getEntidadeEmpregadora(), cliente.getTipoCliente());
     }
 
     private ClienteDTO fromEntityToDTO(Cliente cliente) {
-        return new ClienteDTO(cliente.getId(), cliente.getNome(), cliente.getEmail(), cliente.getSenha(), cliente.getEndereco(), cliente.getEntidadeEmpregadora());
+        return new ClienteDTO(cliente.getId(), cliente.getNome(), cliente.getEmail(), cliente.getSenha(), cliente.getEndereco(), cliente.getEntidadeEmpregadora(), cliente.getTipoCliente());
     }
 }
