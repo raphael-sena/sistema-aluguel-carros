@@ -1,5 +1,6 @@
 package com.lab.backend.controllers;
 
+import com.lab.backend.models.Cliente;
 import com.lab.backend.models.dtos.ClienteDTO;
 import com.lab.backend.services.ClienteService;
 import org.springframework.http.ResponseEntity;
@@ -21,8 +22,8 @@ public class ClienteController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ClienteDTO> findById(@PathVariable Long id) {
-        ClienteDTO clienteDTO = clienteService.findById(id);
-        return ResponseEntity.ok(clienteDTO);
+        Cliente cliente = clienteService.findById(id);
+        return ResponseEntity.ok(clienteService.fromEntityToDTO(cliente));
     }
 
     @GetMapping
@@ -36,7 +37,7 @@ public class ClienteController {
         ClienteDTO cliente = clienteService.save(clienteDTO);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri()
                 .path("/{id}")
-                .buildAndExpand(cliente.getId())
+                .buildAndExpand(cliente.id())
                 .toUri();
         return ResponseEntity.created(uri).body(cliente);
     }

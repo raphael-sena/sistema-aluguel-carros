@@ -17,9 +17,9 @@ public class ClienteService {
         this.clienteRepository = clienteRepository;
     }
 
-    public ClienteDTO findById(Long id) {
-        Cliente cliente = clienteRepository.findById(id).orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
-        return fromEntityToDTO(cliente);
+    public Cliente findById(Long id) {
+        return clienteRepository.findById(id).orElseThrow(
+                () -> new RuntimeException("Usuário não encontrado"));
     }
 
     public List<ClienteDTO> findAll() {
@@ -31,37 +31,33 @@ public class ClienteService {
     @Transactional
     public ClienteDTO save(ClienteDTO obj) {
         Cliente cliente = new Cliente();
-        cliente.setNome(obj.getNome());
-        cliente.setEmail(obj.getEmail());
-        cliente.setSenha(obj.getSenha());
-        cliente.setEndereco(obj.getEndereco());
-        cliente.setEntidadeEmpregadora(obj.getEntidadeEmpregadora());
-        cliente.setTipoCliente(obj.getTipoCliente());
-        cliente = clienteRepository.save(cliente);
+        cliente = fromDTOToEntity(obj, cliente);
+        cliente.setId(cliente.getId());
         return fromEntityToDTO(cliente);
     }
 
     public ClienteDTO update(Long id, ClienteDTO obj) {
-        ClienteDTO cliente = findById(id);
-        cliente.setNome(obj.getNome());
-        cliente.setEmail(obj.getEmail());
-        cliente.setSenha(obj.getSenha());
-        cliente.setEndereco(obj.getEndereco());
-        cliente.setEntidadeEmpregadora(obj.getEntidadeEmpregadora());
-        cliente.setTipoCliente(obj.getTipoCliente());
-        clienteRepository.save(fromDTOToEntity(cliente));
-        return cliente;
+        Cliente cliente = findById(id);
+        cliente = fromDTOToEntity(obj, cliente);
+        return fromEntityToDTO(cliente);
     }
 
     public void delete(Long id) {
         clienteRepository.deleteById(id);
     }
 
-    private Cliente fromDTOToEntity(ClienteDTO cliente) {
-        return new Cliente(cliente.getId(), cliente.getNome(), cliente.getEmail(), cliente.getSenha(), cliente.getEndereco(), cliente.getEntidadeEmpregadora(), cliente.getTipoCliente());
+    private Cliente fromDTOToEntity(ClienteDTO obj, Cliente cliente) {
+        cliente.setNome(obj.nome());
+        cliente.setEmail(obj.email());
+        cliente.setSenha(obj.senha());
+        cliente.setEndereco(obj.endereco());
+        cliente.setEntidadeEmpregadora(obj.entidadeEmpregadora());
+        cliente.setTipoCliente(obj.tipoCliente());
+        cliente = clienteRepository.save(cliente);
+        return cliente;
     }
 
-    private ClienteDTO fromEntityToDTO(Cliente cliente) {
+    public ClienteDTO fromEntityToDTO(Cliente cliente) {
         return new ClienteDTO(cliente.getId(), cliente.getNome(), cliente.getEmail(), cliente.getSenha(), cliente.getEndereco(), cliente.getEntidadeEmpregadora(), cliente.getTipoCliente());
     }
 }
