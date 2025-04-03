@@ -58,6 +58,13 @@ public class ClienteService {
     }
 
     public ClienteDTO fromEntityToDTO(Cliente cliente) {
-        return new ClienteDTO(cliente.getId(), cliente.getNome(), cliente.getEmail(), cliente.getSenha(), cliente.getEndereco(), cliente.getEntidadeEmpregadora(), cliente.getTipoCliente());
+        return new ClienteDTO(cliente.getId(),
+                cliente.getNome(),
+                cliente.getEmail(),
+                cliente.getSenha(),
+                cliente.getEndereco(),
+                cliente.getEntidadeEmpregadora(),
+                cliente.getTipoCliente()
+        );
     }
 }

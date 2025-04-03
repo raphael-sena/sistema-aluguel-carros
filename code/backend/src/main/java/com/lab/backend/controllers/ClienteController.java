@@ -11,7 +11,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/usuarios/clientes")
+@RequestMapping("/clientes")
 public class ClienteController {
 
     private final ClienteService clienteService;

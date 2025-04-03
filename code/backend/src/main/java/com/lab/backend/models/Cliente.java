@@ -1,20 +1,17 @@
 package com.lab.backend.models;
 
 import com.lab.backend.models.enums.TipoCliente;
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@DiscriminatorValue("CLIENTE")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = false)
 public class Cliente extends Usuario {
+
     private String endereco;
     // private List<PedidoAluguel> pedidos;
     private String entidadeEmpregadora;
