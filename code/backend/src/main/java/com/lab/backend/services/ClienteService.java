@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ClienteService {
@@ -68,6 +69,11 @@ public class ClienteService {
         cliente = clienteRepository.save(cliente);
         return cliente;
     }
+
+    public Optional<Cliente> findByEmail(String email) {
+        return clienteRepository.findByEmail(email);
+    }
+
 
     public ClienteDTO fromEntityToDTO(Cliente cliente) {
         return new ClienteDTO(cliente.getId(),
