@@ -4,28 +4,27 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "veiculo")
+@Table(name = "avaliacao_aluguel")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @EqualsAndHashCode
-public class Veiculo {
+public class AvaliacaoAluguel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Integer ano;
-    private String marca;
-    private String modelo;
-    private String placa;
+    private boolean aprovado;
 
     @ManyToOne
     @JoinColumn(name = "cliente_id", nullable = false)
-    private Cliente dono;
+    private Agente agente;
 
-    @OneToOne(mappedBy = "veiculo")
-    @JoinColumn(name = "pedido_aluguel_id", nullable = false)
+    @OneToOne
+    @JoinColumn(name = "pedido_aluguel_id")
     private PedidoAluguel pedidoAluguel;
+
+
 }
