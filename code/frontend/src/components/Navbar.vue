@@ -5,6 +5,7 @@
         <router-link to="/new-order" class="nav-link">Novo Pedido</router-link>
       </div>
       <div class="nav-right">
+        <UserInfo />
         <LogoutButton />
       </div>
     </nav>
@@ -13,11 +14,12 @@
   <script lang="ts">
   import { defineComponent } from 'vue'
   import LogoutButton from './LogoutButton.vue'
-
+  import UserInfo from './UserInfo.vue'
   
   export default defineComponent({
     components: {
-      LogoutButton
+      LogoutButton,
+      UserInfo
     }
   })
   </script>
