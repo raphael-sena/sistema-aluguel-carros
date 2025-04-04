@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -31,7 +32,7 @@ public class AgenteController {
     }
 
     @PostMapping
-    public ResponseEntity<AgenteDTO> save(@RequestBody AgenteDTO agenteDTO) {
+    public ResponseEntity<AgenteDTO> save(@RequestBody @Valid AgenteDTO agenteDTO) {
         AgenteDTO agente = agenteService.save(agenteDTO);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri()
                 .path("/{id}")
@@ -41,7 +42,7 @@ public class AgenteController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<AgenteDTO> update(@PathVariable Long id, @RequestBody AgenteDTO agenteDTO) {
+    public ResponseEntity<AgenteDTO> update(@PathVariable Long id, @RequestBody @Valid AgenteDTO agenteDTO) {
         AgenteDTO agente = agenteService.update(id, agenteDTO);
         return ResponseEntity.ok(agente);
     }

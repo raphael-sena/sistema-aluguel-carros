@@ -16,9 +16,11 @@ import java.util.List;
 public class Cliente extends Usuario {
 
     private String endereco;
-    // private List<PedidoAluguel> pedidos;
     private String entidadeEmpregadora;
     // private List<Rendimento> rendimentos;
+
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+    List<PedidoAluguel> pedidos;
 
     @OneToMany(mappedBy = "dono", cascade = CascadeType.ALL)
     private List<Veiculo> veiculos = new ArrayList<>();

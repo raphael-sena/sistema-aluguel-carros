@@ -3,8 +3,10 @@ package com.lab.backend.services;
 import com.lab.backend.models.Cliente;
 import com.lab.backend.models.dtos.ClienteDTO;
 import com.lab.backend.repositories.ClienteRepository;
-import jakarta.transaction.Transactional;
+import com.lab.backend.services.exceptions.ObjectNotFoundException;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 
 import java.util.List;
 
@@ -19,7 +21,7 @@ public class ClienteService {
 
     public Cliente findById(Long id) {
         return clienteRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("Usuário não encontrado"));
+                () -> new ObjectNotFoundException("Usuário não encontrado"));
     }
 
     public List<ClienteDTO> findAll() {
@@ -42,8 +44,18 @@ public class ClienteService {
         return fromEntityToDTO(cliente);
     }
 
+    @Transactional(propagation = Propagation.SUPPORTS)
     public void delete(Long id) {
-        clienteRepository.deleteById(id);
+
+        if (!clienteRepository.existsById(id)) {
+            throw new ObjectNotFoundException("Cliente não encontrado");
+        }
+
+        try {
+            clienteRepository.deleteById(id);
+        } catch (Exception e) {
+            throw new ObjectNotFoundException("Falha de integridade referencial. Há entidades relacionadas a este cliente.");
+        }
     }
 
     private Cliente fromDTOToEntity(ClienteDTO obj, Cliente cliente) {

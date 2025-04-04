@@ -4,6 +4,7 @@ import com.lab.backend.models.Veiculo;
 import com.lab.backend.models.dtos.VeiculoDTO;
 import com.lab.backend.models.dtos.VeiculosClienteDTO;
 import com.lab.backend.repositories.VeiculoRepository;
+import com.lab.backend.services.exceptions.ObjectNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +24,7 @@ public class VeiculoService {
 
     public Veiculo findById(Long id) {
         return veiculoRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("Veículo não encontrado"));
+                () -> new ObjectNotFoundException("Veículo não encontrado"));
     }
 
     public List<VeiculoDTO> findAll() {

@@ -25,6 +25,7 @@ public class Veiculo {
     @JoinColumn(name = "cliente_id", nullable = false)
     private Cliente dono;
 
-
-
+    @OneToOne(mappedBy = "veiculo")
+    @JoinColumn(name = "pedido_aluguel_id", nullable = false)
+    private PedidoAluguel pedidoAluguel;
 }

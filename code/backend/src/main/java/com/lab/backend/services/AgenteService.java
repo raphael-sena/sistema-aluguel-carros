@@ -3,8 +3,12 @@ package com.lab.backend.services;
 import com.lab.backend.models.Agente;
 import com.lab.backend.models.dtos.AgenteDTO;
 import com.lab.backend.repositories.AgenteRepository;
-import jakarta.transaction.Transactional;
+import com.lab.backend.services.exceptions.DatabaseException;
+import com.lab.backend.services.exceptions.ObjectNotFoundException;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 
 import java.util.List;
 
@@ -19,7 +23,7 @@ public class AgenteService {
 
     public Agente findById(Long id) {
         return agenteRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("Agente não encontrado"));
+                () -> new ObjectNotFoundException("Agente não encontrado"));
     }
 
     public List<AgenteDTO> findAll() {
@@ -44,10 +48,17 @@ public class AgenteService {
         return fromEntityToDTO(agente);
     }
 
-    @Transactional
+    @Transactional(propagation = Propagation.SUPPORTS)
     public void delete(Long id) {
-        findById(id);
-        agenteRepository.deleteById(id);
+        if(!agenteRepository.existsById(id)) {
+            throw new ObjectNotFoundException("Agente não encontrado");
+        }
+
+        try {
+            agenteRepository.deleteById(id);
+        } catch (DataIntegrityViolationException e) {
+            throw new DatabaseException("Falha de integridade referencial. Há entidades relacionadas a este cliente.");
+        }
     }
 
     private Agente fromDTOToEntity(AgenteDTO obj, Agente agente) {
