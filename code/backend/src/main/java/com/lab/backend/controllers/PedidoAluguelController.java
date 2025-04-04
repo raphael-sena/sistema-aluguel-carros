@@ -1,7 +1,9 @@
 package com.lab.backend.controllers;
 
+import com.lab.backend.models.dtos.AluguelDTO;
 import com.lab.backend.models.dtos.PedidoAluguelRequestDTO;
 import com.lab.backend.models.dtos.PedidoAluguelResponseDTO;
+import com.lab.backend.services.AvaliacaoService;
 import com.lab.backend.services.PedidoAluguelService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,9 +18,11 @@ import java.util.List;
 public class PedidoAluguelController {
 
     private final PedidoAluguelService pedidoAluguelService;
+    private final AvaliacaoService avaliacaoService;
 
-    public PedidoAluguelController(PedidoAluguelService pedidoAluguelService) {
+    public PedidoAluguelController(PedidoAluguelService pedidoAluguelService, AvaliacaoService avaliacaoService) {
         this.pedidoAluguelService = pedidoAluguelService;
+        this.avaliacaoService = avaliacaoService;
     }
 
     @GetMapping("/{id}")
@@ -51,5 +55,11 @@ public class PedidoAluguelController {
     public ResponseEntity<Void> deletePedidoAluguel(@PathVariable Long id) {
         pedidoAluguelService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{pedidoId}/avaliacao/agente/{agenteId}")
+    public ResponseEntity<AluguelDTO> avaliarPedidoAluguel(@PathVariable Long pedidoId, @PathVariable Long agenteId, @RequestParam boolean aprovacao) {
+        AluguelDTO aluguelDTO = avaliacaoService.avaliarAluguel(pedidoId, agenteId, aprovacao);
+        return ResponseEntity.ok(aluguelDTO);
     }
 }

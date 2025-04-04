@@ -6,7 +6,7 @@ import lombok.Getter;
 public enum Status {
     PENDENTE(1, "Pendente"),
     APROVADO(2, "Aprovado"),
-    REJEITADO(3, "Rejeitado"),
+    REPROVADO(3, "Reprovado"),
     EM_ANDAMENTO(4, "Em Andamento"),
     FINALIZADO(5, "Finalizado");
 

@@ -1,9 +1,12 @@
 package com.lab.backend.services;
 
+import com.lab.backend.models.Agente;
+import com.lab.backend.models.AvaliacaoAluguel;
 import com.lab.backend.models.PedidoAluguel;
 import com.lab.backend.models.dtos.PedidoAluguelRequestDTO;
 import com.lab.backend.models.dtos.PedidoAluguelResponseDTO;
 import com.lab.backend.models.enums.Status;
+import com.lab.backend.repositories.AvaliacaoAluguelRepository;
 import com.lab.backend.repositories.PedidoAluguelRepository;
 import com.lab.backend.services.exceptions.ObjectNotFoundException;
 import org.springframework.transaction.annotation.Propagation;
@@ -19,11 +22,18 @@ public class PedidoAluguelService {
     private final PedidoAluguelRepository pedidoAluguelRepository;
     private final ClienteService clienteService;
     private final VeiculoService veiculoService;
+    private final AluguelService aluguelService;
+    private final AgenteService agenteService;
+    private final AvaliacaoAluguelRepository avaliacaoAluguelRepository;
 
-    public PedidoAluguelService(PedidoAluguelRepository pedidoAluguelRepository, ClienteService clienteService, VeiculoService veiculoService) {
+
+    public PedidoAluguelService(PedidoAluguelRepository pedidoAluguelRepository, ClienteService clienteService, VeiculoService veiculoService, AluguelService aluguelService, AgenteService agenteService, AvaliacaoAluguelRepository avaliacaoAluguelRepository) {
         this.pedidoAluguelRepository = pedidoAluguelRepository;
         this.clienteService = clienteService;
         this.veiculoService = veiculoService;
+        this.aluguelService = aluguelService;
+        this.agenteService = agenteService;
+        this.avaliacaoAluguelRepository = avaliacaoAluguelRepository;
     }
 
     public PedidoAluguel findById(Long id) {

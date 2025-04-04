@@ -1,5 +1,7 @@
 package com.lab.backend.models.dtos;
 
+import com.lab.backend.models.enums.Status;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
@@ -16,6 +18,8 @@ public record PedidoAluguelRequestDTO(
         LocalDateTime dataInicio,
 
         @NotEmpty(message = "Data de fim não pode ser vazia")
-        LocalDateTime dataFim
-) {
-}
+        LocalDateTime dataFim,
+
+        @NotNull(message = "Status não pode ser nulo")
+        Status status)
+{ }
