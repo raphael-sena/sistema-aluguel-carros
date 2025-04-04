@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -31,7 +32,7 @@ public class PedidoAluguelController {
     }
 
     @PostMapping
-    public ResponseEntity<PedidoAluguelResponseDTO> createPedidoAluguel(@RequestBody PedidoAluguelRequestDTO pedidoAluguelRequestDTO) {
+    public ResponseEntity<PedidoAluguelResponseDTO> createPedidoAluguel(@RequestBody @Valid PedidoAluguelRequestDTO pedidoAluguelRequestDTO) {
         PedidoAluguelResponseDTO pedidoAluguel = pedidoAluguelService.save(pedidoAluguelRequestDTO);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri()
                 .path("/{id}")
@@ -41,7 +42,7 @@ public class PedidoAluguelController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PedidoAluguelResponseDTO> updatePedidoAluguel(@PathVariable Long id, @RequestBody PedidoAluguelRequestDTO pedidoAluguelRequestDTO) {
+    public ResponseEntity<PedidoAluguelResponseDTO> updatePedidoAluguel(@PathVariable Long id, @Valid @RequestBody PedidoAluguelRequestDTO pedidoAluguelRequestDTO) {
         PedidoAluguelResponseDTO pedidoAluguel = pedidoAluguelService.update(id, pedidoAluguelRequestDTO);
         return ResponseEntity.ok(pedidoAluguel);
     }

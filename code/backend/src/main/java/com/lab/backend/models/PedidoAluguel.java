@@ -35,4 +35,8 @@ public class PedidoAluguel {
 
     @Enumerated
     private Status status;
+
+    @OneToOne(mappedBy = "pedidoAluguel")
+    @JoinColumn(name = "avaliacao_aluguel_id")
+    private AvaliacaoAluguel avaliacaoAluguel;
 }

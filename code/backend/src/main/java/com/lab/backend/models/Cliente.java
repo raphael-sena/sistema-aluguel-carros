@@ -19,19 +19,12 @@ public class Cliente extends Usuario {
     private String entidadeEmpregadora;
     // private List<Rendimento> rendimentos;
 
-    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "cliente")
     List<PedidoAluguel> pedidos;
 
-    @OneToMany(mappedBy = "dono", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "dono")
     private List<Veiculo> veiculos = new ArrayList<>();
 
     @Enumerated(EnumType.ORDINAL)
     private TipoCliente tipoCliente;
-
-    public Cliente(Long id, String nome, String email, String senha, String endereco, String entidadeEmpregadora, TipoCliente tipoCliente) {
-        super(id, nome, email, senha);
-        this.endereco = endereco;
-        this.entidadeEmpregadora = entidadeEmpregadora;
-        this.tipoCliente = tipoCliente;
-    }
 }

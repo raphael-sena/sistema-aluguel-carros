@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -37,7 +38,7 @@ public class VeiculoController {
     }
 
     @PostMapping
-    public ResponseEntity<VeiculoDTO> save(@RequestBody VeiculoDTO veiculoDTO) {
+    public ResponseEntity<VeiculoDTO> save(@RequestBody @Valid VeiculoDTO veiculoDTO) {
         VeiculoDTO veiculo = veiculoService.save(veiculoDTO);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri()
                 .path("/{id}")
@@ -47,7 +48,7 @@ public class VeiculoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<VeiculoDTO> update(@PathVariable Long id, @RequestBody VeiculoDTO veiculoDTO) {
+    public ResponseEntity<VeiculoDTO> update(@PathVariable Long id, @RequestBody @Valid VeiculoDTO veiculoDTO) {
         VeiculoDTO veiculo = veiculoService.update(id, veiculoDTO);
         return ResponseEntity.ok(veiculo);
     }
