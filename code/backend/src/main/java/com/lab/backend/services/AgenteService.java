@@ -33,6 +33,18 @@ public class AgenteService {
                 .toList();
     }
 
+    public AgenteDTO login(String email, String senha) {
+        Agente agente = agenteRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Agente não encontrado"));
+
+        if (!agente.getSenha().equals(senha)) {
+            throw new RuntimeException("Senha incorreta");
+        }
+
+        return fromEntityToDTO(agente);
+    }
+
+
     @Transactional
     public AgenteDTO save(AgenteDTO obj) {
         Agente agente = new Agente();

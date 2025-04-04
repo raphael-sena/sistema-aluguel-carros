@@ -41,6 +41,13 @@ public class AgenteController {
         return ResponseEntity.created(uri).body(agente);
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<AgenteDTO> login(@RequestBody AgenteDTO loginDTO) {
+        AgenteDTO agente = agenteService.login(loginDTO.email(), loginDTO.senha());
+        return ResponseEntity.ok(agente);
+    }
+
+
     @PutMapping("/{id}")
     public ResponseEntity<AgenteDTO> update(@PathVariable Long id, @RequestBody @Valid AgenteDTO agenteDTO) {
         AgenteDTO agente = agenteService.update(id, agenteDTO);

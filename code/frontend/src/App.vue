@@ -14,7 +14,7 @@ export default defineComponent({
   components: { Navbar },
   setup() {
     const route = useRoute()
-    const showNavbar = computed(() => !['/', '/register'].includes(route.path))
+    const showNavbar = computed(() => !['/', '/register', '/agent-register'].includes(route.path))
     return { showNavbar }
   }
 })
