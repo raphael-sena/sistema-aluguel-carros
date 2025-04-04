@@ -1,14 +1,12 @@
 package com.lab.backend.models.dtos;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 public record VeiculoDTO(
         Long id,
 
-        @NotEmpty
-        @Size(min = 4, max = 4, message = "O ano deve ter 4 dígitos")
+        @NotNull(message = "O ano não pode ser nulo")
         Integer ano,
 
         @NotEmpty(message = "A marca não pode ser vazia")

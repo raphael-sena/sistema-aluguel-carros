@@ -5,11 +5,11 @@ import com.lab.backend.models.dtos.PedidoAluguelRequestDTO;
 import com.lab.backend.models.dtos.PedidoAluguelResponseDTO;
 import com.lab.backend.services.AvaliacaoService;
 import com.lab.backend.services.PedidoAluguelService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
