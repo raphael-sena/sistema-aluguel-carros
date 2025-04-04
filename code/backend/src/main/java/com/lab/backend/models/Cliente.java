@@ -4,6 +4,9 @@ import com.lab.backend.models.enums.TipoCliente;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,6 +19,9 @@ public class Cliente extends Usuario {
     // private List<PedidoAluguel> pedidos;
     private String entidadeEmpregadora;
     // private List<Rendimento> rendimentos;
+
+    @OneToMany(mappedBy = "dono", cascade = CascadeType.ALL)
+    private List<Veiculo> veiculos = new ArrayList<>();
 
     @Enumerated(EnumType.ORDINAL)
     private TipoCliente tipoCliente;
