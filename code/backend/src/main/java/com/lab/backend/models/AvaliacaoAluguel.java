@@ -18,7 +18,8 @@ public class AvaliacaoAluguel {
 
     private boolean aprovado;
 
-    @OneToMany(mappedBy = "avaliacaoAluguel")
+    @ManyToOne
+    @JoinColumn(name = "cliente_id", nullable = false)
     private Agente agente;
 
     @OneToOne
