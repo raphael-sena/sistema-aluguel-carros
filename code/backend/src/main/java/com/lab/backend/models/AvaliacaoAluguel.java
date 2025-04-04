@@ -22,9 +22,11 @@ public class AvaliacaoAluguel {
     @JoinColumn(name = "cliente_id", nullable = false)
     private Agente agente;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "pedido_aluguel_id")
     private PedidoAluguel pedidoAluguel;
 
-
+    @OneToOne(mappedBy = "avaliacaoAluguel", cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "aluguel_id")
+    private Aluguel aluguel;
 }

@@ -25,7 +25,7 @@ public class PedidoAluguel {
     @JoinColumn(name = "cliente_id", nullable = false)
     private Cliente cliente;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "veiculo_id", nullable = false)
     private Veiculo veiculo;
 
@@ -36,7 +36,7 @@ public class PedidoAluguel {
     @Enumerated
     private Status status;
 
-    @OneToOne(mappedBy = "pedidoAluguel")
+    @OneToOne(mappedBy = "pedidoAluguel", cascade = CascadeType.PERSIST)
     @JoinColumn(name = "avaliacao_aluguel_id")
     private AvaliacaoAluguel avaliacaoAluguel;
 }

@@ -5,11 +5,11 @@ import com.lab.backend.models.dtos.ClienteDTO;
 import com.lab.backend.models.dtos.LoginRequest;
 import com.lab.backend.models.dtos.LoginResponse;
 import com.lab.backend.services.ClienteService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
